@@ -1,0 +1,53 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: iam-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/iam_db
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_URL:http://localhost:8080}/realms/${KEYCLOAK_REALM:company-realm}
+          jwk-set-uri: ${KEYCLOAK_URL:http://localhost:8080}/realms/${KEYCLOAK_REALM:company-realm}/protocol/openid-connect/certs
+
+# Keycloak Configuration
+keycloak:
+  auth-server-url: ${KEYCLOAK_URL:http://localhost:8080}
+  realm: ${KEYCLOAK_REALM:company-realm}
+  admin:
+    client-id: ${KEYCLOAK_ADMIN_CLIENT:admin-cli}
+    client-secret: ${KEYCLOAK_CLIENT_SECRET:your-client-secret}
+    username: ${KEYCLOAK_ADMIN_USER:admin}
+    password: ${KEYCLOAK_ADMIN_PASSWORD:admin}
+  client:
+    id: ${KEYCLOAK_CLIENT_ID:iam-client}
+    secret: ${KEYCLOAK_CLIENT_SECRET:your-client-secret}
+
+# Logging
+logging:
+  level:
+    com.company.iam: DEBUG
+    org.springframework.security: INFO
+
+# Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always

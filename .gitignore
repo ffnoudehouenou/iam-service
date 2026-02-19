@@ -1,0 +1,45 @@
+# Maven
+target/
+.m2/
+*.jar
+dependency-reduced-pom.xml
+
+# IDE
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Gradle (if used)
+.gradle/
+build/
+
+# Environment
+.env
+.env.local
+.env*.local
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+*.log
+logs/
+
+# Runtime artifacts
+.classpath
+.project
+.settings/
+
+# Node modules (if frontend files are added)
+node_modules/
+npm-debug.log
+
+# Docker artifacts
+docker-compose.override.yml
